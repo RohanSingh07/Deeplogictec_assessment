@@ -23,16 +23,16 @@ const server = http.createServer((req,res)=>{
             response.on("end",function(){
                 
                 var position = data.search("latest-stories__heading")
-                data = data.slice(position,)
+                data = data.substring(position,)    // slice() is replaced with subtring()
                 var position_last = data.search("</ul>")
-                data = data.slice(0,position_last)
+                data = data.substring(0,position_last)
                 position = data.search('<li class="latest-stories__item">')
-                data = data.slice(position,)
+                data = data.substring(position,)
                 var href = data.split("href")
                 var headlines = data.split("latest-stories__item-headline")
                 
                 for(var i=1;i<7;i++){
-                    final_results.push({"title":headlines[i].slice(2,headlines[i].search("</")),"link":'https://time.com'+href[i].slice(2,href[i].search(">")-1)})
+                    final_results.push({"title":headlines[i].substring(2,headlines[i].search("</")),"link":'https://time.com'+href[i].substring(2,href[i].search(">")-1)})
 
                 }
             console.log(final_results)
@@ -59,3 +59,4 @@ const server = http.createServer((req,res)=>{
 server.listen(port,()=>{
     console.log(`Connection established at port number ${port}`)
 })
+
